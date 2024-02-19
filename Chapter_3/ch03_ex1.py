@@ -4,9 +4,12 @@
 Chapter 3, Example Set 1
 """
 import timeit
-import collections
+try:
+    from collections import Callable
+except ImportError as e:
+    from collections.abc import Callable
 
-class Mersenne1( collections.Callable ):
+class Mersenne1( Callable ):
     """Callable object with a **Strategy** plug in required."""
     def __init__( self, algorithm ):
         self.pow2= algorithm
@@ -50,7 +53,7 @@ m1f= Mersenne1( faster )
 # Alternative Mersenne using class-level configuration.
 # The syntax is awkward.
 
-class Mersenne2( collections.Callable ):
+class Mersenne2( Callable ):
     pow2= None
     def __call__( self, arg ):
         pow2= self.__class__.__dict__['pow2']
